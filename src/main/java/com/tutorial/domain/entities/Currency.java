@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "currency")
+@NamedQuery(name = "Currency.getAll", query = "select c from Currency c")
 public class Currency implements Serializable {
 
     @Id

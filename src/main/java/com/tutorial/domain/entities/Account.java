@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "account")
+
 public class Account implements Serializable {
 
     @Id

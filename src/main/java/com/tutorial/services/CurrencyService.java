@@ -14,7 +14,9 @@ public class CurrencyService {
     private CurrencyRepository currencyRepository;
 
     public long addNewCurrency(String code) {
-        return currencyRepository.create(code);
+        Currency currency = new Currency();
+        currency.setCode(code);
+        return currencyRepository.create(currency);
     }
 
     public void remove(long id) {

@@ -5,6 +5,13 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "price_row")
+@NamedQueries({
+        @NamedQuery(name = "PriceRow.getPriceRowByPriceAndCurrencyAndProductAndIsActive", query = "select pr from PriceRow pr where pr.price = :price and pr.currency like :currency and pr.product like :product and pr.active = true"),
+        @NamedQuery(name = "PriceRow.getPriceRowByPriceAndCurrencyAndNullProductAndIsActive", query = "select pr from PriceRow pr where pr.price = :price and pr.currency like :currency and pr.product is null and pr.active = true"),
+        @NamedQuery(name = "PriceRow.getAllDisablePriceRows", query = "select pr from PriceRow pr where pr.active = false "),
+        @NamedQuery(name = "PriceRow.getAllNoProductPriceRows", query = "select pr from PriceRow pr where pr.product is null")
+})
+
 public class PriceRow implements Serializable {
 
     @Id
@@ -25,6 +32,22 @@ public class PriceRow implements Serializable {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    public PriceRow() {
+    }
+
+    public PriceRow(double price, Currency currency, boolean active) {
+        this.price = price;
+        this.currency = currency;
+        this.active = active;
+    }
+
+    public PriceRow(double price, Currency currency, Product product, boolean active) {
+        this.currency = currency;
+        this.active = active;
+        this.product = product;
+        this.price = price;
+    }
 
     public long getId() {
         return id;
@@ -65,4 +88,5 @@ public class PriceRow implements Serializable {
     public void setActive(boolean active) {
         this.active = active;
     }
+
 }
